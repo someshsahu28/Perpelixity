@@ -9,12 +9,13 @@ const geminiModel = new ChatGoogleGenerativeAI({
 const mistralModel = new ChatMistralAI({
     model: "mistral-small-latest",
     apiKey: process.env.MISTRAL_API_KEY
-});
+})
 
 export async function generateResponse(message) {
+
     const response = await geminiModel.invoke(message.map(msg => {
         if(msg.role == "user"){
-          return new HumanMessage(message)
+          return new HumanMessage(msg.content)
         }else if(msg.role == "ai"){
             return new AIMessage(msg.content)
         }
