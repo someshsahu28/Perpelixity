@@ -16,7 +16,10 @@ export async function sendMessage(req, res) {
             user: req.user.id,
             title
         })
+    } else {
+        chat = await chatModel.findById(chatId);
     }
+    
 
     const userMessage = await messageModel.create({
         chat: chatId || chat._id,
